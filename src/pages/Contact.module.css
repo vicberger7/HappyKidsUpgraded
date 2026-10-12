@@ -1,0 +1,252 @@
+.contactUs {
+  height: 100vh;
+  background-color: #4da3ff;
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .contactUs {
+    height: 100%;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.contactUsData {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  gap: 2rem;
+  padding-top: 3rem;
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .contactUsData {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 95px;
+  }
+}
+
+.mailCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 3rem;
+  padding: 2rem;
+  border-radius: 15px;
+  background-color: #f9f9f9;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .mailCard {
+    width: 80%;
+    justify-content: center;
+  }
+}
+
+.mailIcon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.5rem;
+  gap: 1rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 375px) {
+  .mailIcon {
+    gap: 0.5rem;
+  }
+}
+.mailLine {
+ white-space: nowrap;
+  margin: 0;
+}
+@media screen and (max-width: 375px) {
+  .mailLine {
+    font-size: 1.3rem;
+  }
+}
+.mail {
+  position: relative;
+  font-size: 1.7rem;
+  color: #0077ff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+@media (max-width: 425px) {
+  .mail {
+  font-size: 1.2rem;
+  }
+}
+
+.mail:hover {
+  color: #0077ff;
+}
+.mail::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background-color: #0077ff;
+  transition: width 0.3s ease;
+}
+.mail:hover::after,
+.number:hover::after {
+  width: 100%;
+}
+
+.workHoursCard {
+  text-align: center;
+  padding: 0 2rem;
+  border-radius: 15px;
+  background-color: #f9f9f9;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .workHoursCard {
+    width: 80%;
+  }
+}
+
+.workHoursIcon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  gap: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.workHoursLine {
+  font-size: 1.1rem;
+}
+
+.phoneCard {
+  text-align: center;
+  padding: 2rem 2rem 3rem 2rem;
+  border-radius: 15px;
+  background-color: #f9f9f9;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .phoneCard {
+    width: 80%;
+  }
+}
+
+.phoneCard > .phoneSection:first-of-type {
+  border-bottom: 1px solid #0f0e0e;
+  padding-bottom: 2rem;
+}
+
+.phoneIcon1,
+.phoneIcon2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  gap: 1rem;
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .phoneIcon1 svg,
+  .phoneIcon2 svg {
+    display: none;
+  }
+}
+
+.phoneLine {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+}
+
+.callButton {
+  background: linear-gradient(135deg, #00b09b, #96c93d);
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+.callButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 176, 155, 0.3);
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+}
+
+.addressCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 70rem;
+  width: 100%;
+  border-radius: 15px;
+  background-color: #f9f9f9;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  margin-left: 10rem;
+  margin-top: 5rem;
+  /* overflow: hidden; */
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .addressCard {
+    width: 90%;
+    margin: 1rem auto 2rem;
+    height: auto;
+  }
+
+  .addressCard iframe {
+    height: 200px;
+  }
+}
+
+.addressTitle {
+  border-bottom: 3px solid #ccc;
+  padding: 0 1rem 1.5rem 1rem;
+  font-size: 1.5rem;
+}
+.getDirections {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.mailCard,
+.workHoursCard,
+.phoneCard,
+.addressCard {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+}

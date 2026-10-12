@@ -1,0 +1,662 @@
+.adminPanel {
+  padding: 20px;
+  width: 100%;
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .adminPanel {
+    padding-top: 5px;
+    padding-bottom: 0;
+  }
+}
+
+.adminTitle {
+  text-align: center;
+  color: #ffffff;
+  font-size: 4rem;
+  font-weight: 600;
+  margin-bottom: 2.5rem;
+  text-shadow: 4px 4px 10px rgb(0, 0, 0);
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .adminTitle {
+    display: none;
+  }
+}
+
+.statsContainer {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 25px;
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .statsContainer {
+    margin-bottom: 10px;
+  }
+}
+
+.statsContainer .checkDate {
+  margin-left: auto;
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .statsContainer .checkDate {
+    display: none;
+  }
+}
+
+.card {
+  background: #ffffff;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 1);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .card {
+    font-size: 0.7rem;
+    padding: 7px 10px;
+  }
+}
+
+.daysOff {
+  color: #ffffff;
+  background: #000000;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 1);
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.5);
+}
+
+.daysOff:hover {
+  background: #333333;
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .daysOff {
+    font-size: 0.7rem;
+    padding: 7px 10px;
+  }
+}
+
+.checkDate {
+  padding: 12px 18px;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  transition: 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.8);
+}
+
+.checkDate:hover {
+  background: #0069d9;
+}
+
+.calendarDropdown {
+  position: absolute;
+  top: 110%;
+  right: 10%;
+  z-index: 15;
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+
+.bookedDay {
+  background-color: yellow !important;
+  border-radius: 50%;
+}
+
+.tableSection {
+  width: 100%;
+  overflow-x: auto;
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .tableSection {
+    display: none;
+  }
+}
+
+.bookingsTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: "Arial", sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.bookingsTable th,
+.bookingsTable td {
+  padding: 12px 16px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.bookingsTable th {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+}
+
+.bookingsTable td {
+  background: #ffffff;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.bookingsTable tr:hover td {
+  background: #f0f4ff;
+  transform: translateY(-1px);
+}
+
+.bookingsTable tr:last-child td {
+  border-bottom: none;
+}
+
+.bookingsTable td.actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.noBookings {
+  font-size: 4rem;
+  font-weight: 900;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 1);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  background: #ff9800;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 14px;
+}
+
+.btn:hover {
+  background: #985c02;
+}
+
+.cancelled {
+  background: #878685;
+  color: rgb(0, 0, 0);
+}
+.cancelled:hover {
+  background: #878685;
+  color: rgb(0, 0, 0);
+  cursor: not-allowed;
+}
+
+.delete {
+  background: #d9534f;
+  color: white;
+}
+
+.delete:hover {
+  background: #c9302c;
+}
+
+.adminPanel,
+.tableSection,
+.bookingsTable {
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .adminPanelMobile {
+    padding: 12px;
+    background: linear-gradient(180deg, #f8fafc, #eef2ff);
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin-top:30px;
+  }
+
+  .topRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .monthField {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff;
+    padding: 8px 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .monthText {
+    font-size: 0.95rem;
+  }
+  .downArrow {
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .locationToggle {
+    display: flex;
+    gap: 6px;
+  }
+  .locBtn {
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: #ffffff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  }
+  .locBtn:hover {
+    opacity: 0.95;
+  }
+  .activeLoc {
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    box-shadow: 0 6px 18px rgba(37, 117, 252, 0.18);
+  }
+
+  .centerModalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  .centerModal {
+    width: 80%;
+    background: #fff;
+    padding: 16px;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    text-align: center;
+  }
+  .centerModal h3 {
+    margin: 6px 0 0 0;
+    font-size: 1.05rem;
+  }
+  .monthPickerGrid {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+  }
+  .monthList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    max-height: 210px;
+    overflow: auto;
+    padding: 6px;
+  }
+  .monthItem {
+    background: #f5f7ff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .yearList {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px;
+  }
+  .yearItem {
+    background: #fff7f3;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .modalButtonsRow {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .modalBtnSecondary {
+    color: #ffffff;
+    padding: 8px 12px;
+    background: #b2b2b2;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  .cancelBtn {
+    background: #f59e0b;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .deleteBtn {
+    background: #dc2626;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .daysRow {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 8px 0;
+    margin-bottom: 8px;
+  }
+  .dayCell {
+    flex: 0 0 auto;
+    width: 56px;
+    height: 68px;
+    background: #fff;
+    border-radius: 50%;
+    padding: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+  }
+  .weekday {
+    font-size: 0.72rem;
+    color: #6b7280;
+  }
+  .dayNumber {
+    font-size: 1.05rem;
+  }
+  .daySelected {
+    border: 2px solid #4f46e5;
+    box-shadow: 0 6px 18px rgba(79, 70, 229, 1);
+    transform: translateY(-3px);
+    background: linear-gradient(180deg, #eef2ff, #fff);
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ef4444;
+    position: absolute;
+    bottom: 6px;
+  }
+
+  .timelineWrapper {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    margin-top: 8px;
+  }
+
+  .hoursColumn {
+    flex: 0 0 15%;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 4px;
+  }
+  .hourCell {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 6px;
+    font-size: 0.85rem;
+    color: #374151;
+  }
+
+  .bookingsColumn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .noDateSelected {
+    padding: 20px;
+    text-align: center;
+    color: #6b7280;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .bookingEmpty {
+    height: 72px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+  .bookingSlot {
+    min-height: 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .bookingCard {
+    background: linear-gradient(180deg, #ffffff, #fbfdff);
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: 0 6px 18px rgba(2, 6, 23, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    touch-action: manipulation;
+  }
+  .bookingCard:active {
+    transform: scale(0.995);
+  }
+
+  .bookingHead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+  }
+  .clientName {
+    font-weight: 800;
+    font-size: 0.95rem;
+  }
+  .phone {
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+
+  .bookingBody {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .service {
+    font-size: 0.85rem;
+    color: #374151;
+  }
+  .meta {
+    display: flex;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+  .smallTime {
+    font-size: 0.8rem;
+    color: #374151;
+    font-weight: 700;
+  }
+  .status {
+    font-size: 0.75rem;
+    color: #ef4444;
+    font-weight: 700;
+  }
+
+  .hiddenTableOnMobile {
+    display: none;
+  }
+}
+
+.centerModalOverlayVacation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centerModalVacation {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  max-height: 90%;
+  position: relative;
+}
+
+.modalButtonsRowVacation {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+.modalBtnSecondaryVacation {
+  padding: 6px 12px;
+  border: none;
+  background-color: #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.hoursPanelDesktopVacation {
+  position: absolute;
+  top: 35px;
+  width: 90%;
+  height: 75%;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1010;
+}
+
+.hoursListVacation {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hoursListVacation li button {
+  width: 50px;
+  padding: 4px 0;
+  border: none;
+  border-radius: 6px;
+  margin: 2px;
+  font-size: 0.85em;
+  cursor: pointer;
+}
+
+.react-calendar {
+  width: 100%;
+  max-width: 400px;
+  border: none;
+  font-family: Arial, sans-serif;
+}
+
+.react-calendar__tile--active {
+  background: white !important;
+}
+
+.disabledDay {
+  background-color: #ccc !important;
+  opacity: 0.5;
+  border-radius: 50%;
+}
+
+.partialDisabledDay {
+  background: rgba(110, 247, 167, 0.4) !important;
+  border-radius: 50%;
+}
+
+
+.tileOverlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+@media screen and (min-width: 350px) and (max-width: 430px) {
+  .centerModalVacation {
+    width: 80%;
+  }
+
+  .hoursPanelDesktopVacation {
+    position: static;
+    width: 90%;
+    max-width: 100%;
+    top: auto;
+    right: auto;
+    margin-top: 10px;
+    box-shadow: none;
+    background-color: #fff;
+  }
+
+  .hoursListVacation li button {
+    width: 60px;
+    font-size: 0.9em;
+  }
+}

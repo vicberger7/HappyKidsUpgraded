@@ -1,0 +1,191 @@
+.bookingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #c1dbed;
+}
+
+.title {
+  text-align: center;
+  margin: 0 0 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.bookingCalendar :global(.react-calendar) {
+  width: 500px !important;
+  border: 1px solid #000;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.bookingCalendar :global(.react-calendar__navigation__label) {
+  text-transform: capitalize;
+}
+
+.bookingCalendar :global(.react-calendar__navigation) {
+  height: 60px;
+}
+
+.bookingCalendar :global(.react-calendar__navigation button) {
+  font-size: 20px;
+}
+
+.bookingCalendar :global(.react-calendar__tile) {
+  height: 55px;
+  font-size: 18px;
+}
+
+@media (max-width: 425px) {
+  .bookingCalendar :global(.react-calendar).calendar {
+    width: 95% !important;
+    font-size: 15px;
+  }
+
+  .bookingCalendar :global(.react-calendar__tile) {
+    height: 45px;
+    font-size: 15px;
+  }
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+}
+
+.alertModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  z-index: 1000;
+}
+
+.modal {
+  position: relative;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+}
+
+@media (max-width: 425px) {
+  .modal {
+    width: 80%;
+  }
+}
+
+.timeList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.timeButton {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+
+.selectedTime {
+  background-color: #333;
+  color: white;
+  border-color: #333;
+}
+
+.timeButton:hover {
+  background: #eee;
+}
+
+.continueButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.bookingDetails {
+  margin: 25px 0;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.detailRow span {
+  font-weight: 500;
+}
+
+.detailRow strong {
+  text-align: right;
+}
+
+.detailsForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.detailsForm input,
+.detailsForm textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+.detailsForm textarea {
+  resize: vertical;
+}
+
+.confirmBookingButton {
+  width: 100%;
+  padding: 13px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 13px;
+  margin-top: -10px;
+}
+
+.closeModalButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}

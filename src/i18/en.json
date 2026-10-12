@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "food-menu": "Food Menu",
+    "gallery": "Gallery",
+    "career": "Career",
+    "contact": "Contact",
+    "booking": "Booking"
+  },
+  "home": {
+    "welcome": "Welcome to Happy Kids!",
+    "welcomeMobile": "Welcome<0/>to<0/>Happy Kids!",
+    "description": "We offer the best services for your children, including education, fun and healthy eating."
+  },
+  "aboutUs": {
+    "description": "Happy Kids is a play center where children can develop, learn and have fun. There is an opportunity to be with the child or leave it under supervision. You can eat deliciously with us or take food with you. Or even order takeout. On the child's birthday, you have the opportunity to visit us and celebrate it in our play center. We strive to create a safe and supportive environment for every child."
+  },
+  "services": {
+    "animationsAndShows": "🎈 Animation and Show Programs. Bright emotions for children and adults. Animators in costumes of favorite characters. Bubble show. Master classes. Disco for children",
+    "familyLeisure": "☕ Family Leisure. Ideal place for family relaxation. Comfortable tables near the play area. Opportunity to celebrate without full booking. Wi-Fi and comfort",
+    "gamingRoom": "🧸 Gaming Room. Ideal space for children to have fun under supervision. Mazes, slides, trampolines. Area for toddlers. Animators and entertainment programs. Hosting children's parties",
+    "partiesAndBDs": "🎂 Parties and Birthday Celebrations. We will make your party unforgettable! Birthday parties for children. Family celebrations. Themed parties. Banquet menu for any taste",
+    "restaurant": "🍽️ Restaurant for the Whole Family. Cozy atmosphere for parents to relax while children play. European and children's cuisine. Special children's menu. Desserts and drinks. Comfortable relaxation zone"
+  },
+  "foodMenu": {
+    "title": "Food Menu",
+    "description": "We provide a wide variety of delicious dishes for your children to enjoy. From classics to unique creations, we have something for everyone.",
+    "scanQr": "Scan the QR code to view the menu on your phone"
+  },
+  "contact": {
+    "emailLine": "Email address:",
+    "emailTooltip": "Click to send an email",
+    "workHoursTitle": "Working Hours",
+    "workHoursLine": "Mon-Sun: 10:00 AM - 8:00 PM",
+    "phone1": "Phone number 1:",
+    "phone2": "Phone number 2:",
+    "callButton": "📞 Call",
+    "addressTitle": "Our address: Mukachevo, Voz'yednannya St. 17 \n Melisa store, 2nd floor",
+    "getDirections": "📍 Get Directions"
+  },
+  "career": {
+    "title": "Join Our Team",
+    "description1": "Are you passionate about working with children ? At Happy Kids, we’re always looking for enthusiastic individuals to join our team.",
+    "description2": "Whether you already have the relevant qualifications or are currently studying, we welcome applicants who are committed to providing high-quality, nurturing, and inspiring care. Joining our team means becoming part of a supportive and professional environment where your skills are valued, and your career can grow.",
+    "description3": "To apply or find out more, contact us via email at happy.kids.2017.mukachevo@gmail.com",
+    "form": {
+      "name": "Name",
+      "contactNumber": "Contact Number",
+      "optional": "Optional",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "sendButton": "Send Message"
+    }
+  },
+  "gallery": {
+    "title": "Gallery",
+    "addPhoto": "Add Photo",
+    "addImage": "Add Image",
+    "deletePhoto": "Delete Photo"
+  },
+  "booking": {
+    "hoursError": "Please select a time for your event.",
+    "emailSuccess": "Your booking email has been successfully sent!",
+    "success": "Your booking has been successfully submitted!",
+    "title": "Select a date",
+    "selectTime": "Select the event time",
+    "continueButton": "Continue",
+    "eventStarts": "Event starts at",
+    "date": "Date",
+    "yourDetails": "Your Details",
+    "confirmBooking": "Confirm Booking",
+    "description": "happy.kids.2017.mukachevo@gmail.com",
+    "form": {
+      "name": "Name",
+      "contactNumber": "Contact Number",
+      "email": "Email",
+      "message": "Type of event, number of guests, any additional information",
+      "confirmBooking": "Confirm Booking"
+    },
+    "validation": {
+      "nameRequired": "Please enter your name and surname.",
+      "nameMin": "Name must be at least 2 characters long.",
+      "nameMax": "Name must be at most 100 characters long.",
+      "nameInvalid": "Please enter a valid name.",
+      "emailRequired": "Please enter your email.",
+      "emailInvalid": "Please enter a valid email.",
+      "contactNumberRequired": "Please enter your contact number.",
+      "contactNumberInvalid": "Please enter a valid contact number.",
+      "messageMax": "Message must be at most 1000 characters long."
+    }
+  },
+  "login": {
+    "title": "Login",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "button": "Login",
+    "error": "Login failed",
+    "forgotPassword": "Forgot Password?"
+  },
+  "adminDashboard": {
+    "title": "Admin Dashboard",
+    "totalBookings": "Total Bookings",
+    "upcomingToday": "Today's Bookings",
+    "vacationBookings": "Vacation Bookings",
+    "checkBookingsByDate": "Check Bookings by Date",
+    "noBookings": "No bookings",
+    "vacationBookingTitle": "Vacation Booking",
+    "vacationClickhint": "Click on a date to book/cancel. Double click to select hours.",
+    "vacationCloseButton": "Close",
+    "clientName": "Client Name",
+    "number": "Contact Number",
+    "message": "Message",
+    "date": "Date",
+    "time": "Time",
+    "actions": "Actions",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete"
+  },
+  "reset-password": {
+    "title": "Reset Password",
+    "button": "Change Password",
+    "success": "Password updated successfully!",
+    "validation": {
+      "passwordLength": "Password must be at least 6 characters.",
+      "passwordMismatch": "Passwords do not match."
+    }
+  }
+}
