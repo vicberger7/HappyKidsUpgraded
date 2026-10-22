@@ -88,7 +88,7 @@
       "emailRequired": "Please enter your email.",
       "emailInvalid": "Please enter a valid email.",
       "contactNumberRequired": "Please enter your contact number.",
-      "contactNumberInvalid": "Please enter a valid contact number.",
+      "contactNumberInvalid": "Please enter a valid contact number in the format +380XXXXXXXXX.",
       "messageMax": "Message must be at most 1000 characters long."
     }
   },
@@ -107,6 +107,7 @@
     "vacationBookings": "Vacation Bookings",
     "checkBookingsByDate": "Check Bookings by Date",
     "noBookings": "No bookings",
+    "noDateSelected": "Choose a date to check bookings.",
     "vacationBookingTitle": "Vacation Booking",
     "vacationClickhint": "Click on a date to book/cancel. Double click to select hours.",
     "vacationCloseButton": "Close",
@@ -118,7 +119,10 @@
     "actions": "Actions",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "delete": "Delete"
+    "delete": "Delete",
+    "close": "Close",
+    "selectMonthYear": "Select Month and Year",
+    "readMore": "Read More"
   },
   "reset-password": {
     "title": "Reset Password",

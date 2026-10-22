@@ -89,7 +89,8 @@ export default function Booking() {
 
     const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿА-Яа-яІіЇїЄєҐґ' -]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\+?[0-9\s()-]{7,20}$/;
+    // const phoneRegex = /^\+?[0-9\s()-]{7,20}$/;
+    const phoneRegex = /^\+380\d{9}$/;
 
     const name = formData.name.trim();
     const email = formData.email.trim();

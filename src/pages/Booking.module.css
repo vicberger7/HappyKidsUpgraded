@@ -38,9 +38,19 @@
 }
 
 @media (max-width: 425px) {
-  .bookingCalendar :global(.react-calendar).calendar {
-    width: 95% !important;
+  .bookingCalendar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 0 10px;
+  }
+
+  .bookingCalendar :global(.react-calendar) {
+    width: 100% !important;
+    max-width: 500px;
     font-size: 15px;
+    box-sizing: border-box;
   }
 
   .bookingCalendar :global(.react-calendar__tile) {

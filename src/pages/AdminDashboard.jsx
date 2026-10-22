@@ -16,6 +16,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { enUS, uk } from "date-fns/locale";
 import { useTranslation } from "react-i18next";
 import emailjs from "@emailjs/browser";
+import phoneIcon from "../assets/images/phoneCall.png";
 
 function sortBookings(list) {
   return list.sort((a, b) => {
@@ -25,10 +26,20 @@ function sortBookings(list) {
 }
 
 function formatLocalDate(d) {
-  const local = new Date(d);
-  const year = local.getFullYear();
-  const month = String(local.getMonth() + 1).padStart(2, "0");
-  const day = String(local.getDate()).padStart(2, "0");
+  if (!d) return "";
+
+  // Preserve Supabase date strings such as "2026-10-13"
+  if (typeof d === "string") {
+    const match = d.match(/^(\d{4}-\d{2}-\d{2})/);
+    if (match) return match[1];
+  }
+
+  const date = new Date(d);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
   return `${year}-${month}-${day}`;
 }
 
@@ -36,11 +47,14 @@ export default function AdminDashboard() {
   const [bookings, setBookings] = useState([]);
   const [filteredBookings, setFilteredBookings] = useState([]);
   const [calendarOpen, setCalendarOpen] = useState(false);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedDate, setSelectedDate] = useState(null);
   const [monthPickerOpen, setMonthPickerOpen] = useState(false);
   const [visibleMonth, setVisibleMonth] = useState(() => new Date());
   const [modalBooking, setModalBooking] = useState(null);
   const [isMobileSize, setIsMobileSize] = useState(false);
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [selectedMessage, setSelectedMessage] = useState("");
 
   const { t } = useTranslation();
   const { i18n } = useTranslation();
@@ -87,80 +101,58 @@ export default function AdminDashboard() {
     await load();
   };
 
-  // const handleConfirmationEmail = async (b) => {
-  //   try {
-  //     const response = await fetch("/api/send-confirmation-email", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         clientName: b.clientName,
-  //         email: b.email,
-  //         date: b.date,
-  //         time: b.time,
-  //       }),
-  //     });
+  const handleConfirmationEmail = async (b) => {
+    try {
+      // Check the client's email address
+      if (!b.email || !b.email.trim()) {
+        alert("The client's email address is missing.");
+        console.error("Booking has no email address:", b);
+        return;
+      }
 
-  //     if (!response.ok) {
-  //       throw new Error("Failed to send confirmation email");
-  //     }
+      const templateParams = {
+        name: b.clientName,
+        email: b.email.trim(),
+        to_email: b.email.trim(),
+        booking_date: b.date,
+        booking_time: String(b.time || "").slice(0, 5),
+        booking_number: b.number,
+        message: b.message || "",
+      };
 
-  //     await updateBookingStatus(b.id, "confirmed");
+      console.log("Sending confirmation email to:", templateParams.to_email);
 
-  //     setBookings((prev) =>
-  //       prev.map((item) =>
-  //         item.id === b.id ? { ...item, status: "confirmed" } : item,
-  //       ),
-  //     );
+      // Send confirmation email using EmailJS
+      const response = await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_CONFIRMATION_TEMPLATE_ID,
+        templateParams,
+        {
+          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+        },
+      );
 
-  //     alert(`Confirmation email sent to ${b.clientName}`);
-  //   } catch (err) {
-  //     console.error("Error sending confirmation email:", err);
-  //     alert("Error sending confirmation email.");
-  //   }
-  // };
+      console.log("EmailJS response:", response);
 
-  
-const handleConfirmationEmail = async (b) => {
-  try {
-    const templateParams = {
-      name: b.clientName,
-      email: b.email,
-      booking_date: b.date,
-      booking_time: b.time,
-      booking_number: b.number,
-      message: b.message || "",
-    };
+      // Update booking status only after the email succeeds
+      await updateBookingStatus(b.id, "confirmed");
 
-    // Send confirmation email using EmailJS
-    await emailjs.send(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_CONFIRMATION_TEMPLATE_ID,
-      templateParams,
-      {
-        publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      },
-    );
+      setBookings((prev) =>
+        prev.map((item) =>
+          item.id === b.id ? { ...item, status: "confirmed" } : item,
+        ),
+      );
 
-    // Update booking status in Supabase
-    await updateBookingStatus(b.id, "confirmed");
-
-    // Update local state
-    setBookings((prev) =>
-      prev.map((item) =>
-        item.id === b.id ? { ...item, status: "confirmed" } : item,
-      ),
-    );
-
-    alert(`Confirmation email sent to ${b.clientName}`);
-  } catch (err) {
-    console.error("Error sending confirmation email:", err);
-    alert("Error sending confirmation email.");
-  }
-};
-
-
+      alert(`Confirmation email sent to ${b.email}`);
+    } catch (err) {
+      console.error("Error sending confirmation email:", err);
+      alert(
+        `Failed to send confirmation email: ${
+          err?.text || err?.message || "Unknown error"
+        }`,
+      );
+    }
+  };
 
   const handleCancellationEmail = async (b) => {
     try {
@@ -221,10 +213,10 @@ const handleConfirmationEmail = async (b) => {
   }, []);
 
   const workingHours = (() => {
-    const start = 8 * 60 + 30;
-    const end = 18 * 60;
+    const start = 12 * 60;
+    const end = 17 * 60;
     const arr = [];
-    for (let t = start; t <= end; t += 30) {
+    for (let t = start; t <= end; t += 60) {
       const h = Math.floor(t / 60)
         .toString()
         .padStart(2, "0");
@@ -269,16 +261,29 @@ const handleConfirmationEmail = async (b) => {
   );
 
   const bookingMap = {};
+
   bookingsForSelectedDate.forEach((b) => {
-    bookingMap[b.time] = bookingMap[b.time] || [];
-    bookingMap[b.time].push(b);
+    // Convert "09:00:00" to "09:00"
+    const normalizedTime = String(b.time || "").slice(0, 5);
+
+    if (!bookingMap[normalizedTime]) {
+      bookingMap[normalizedTime] = [];
+    }
+
+    bookingMap[normalizedTime].push(b);
   });
 
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+  const currentYear = currentDate.getFullYear();
+
   const monthNames = Array.from({ length: 12 }).map((_, i) =>
-    format(new Date(2020, i, 1), "LLLL", { locale: uk }),
+    format(new Date(currentYear, i, 1), "LLLL", {
+      locale: dateLocale,
+    }),
   );
 
-  const years = [new Date().getFullYear()];
+  const years = [currentYear, currentYear + 1];
 
   const longPressTimer = useRef(null);
 
@@ -296,7 +301,17 @@ const handleConfirmationEmail = async (b) => {
   };
 
   const applyMonthYear = (m, y) => {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    // Prevent selecting previous months
+    if (y < currentYear || (y === currentYear && m < currentMonth)) {
+      return;
+    }
+
     setVisibleMonth(new Date(y, m, 1));
+    setSelectedYear(y);
     setMonthPickerOpen(false);
 
     if (
@@ -395,7 +410,28 @@ const handleConfirmationEmail = async (b) => {
                     <tr key={b.id}>
                       <td>{b.clientName}</td>
                       <td>{b.number}</td>
-                      <td>{b.message}</td>
+
+                      <td className={css.desktopMessage}>
+                        <span className={css.messagePreview}>
+                          {b.message
+                            ? b.message.length > 12
+                              ? `${b.message.slice(0, 12)}...`
+                              : b.message
+                            : "-"}
+                        </span>
+                        {b.message && b.message.length > 12 && (
+                          <button
+                            type="button"
+                            className={css.readMoreButton}
+                            onClick={() => {
+                              setSelectedMessage(b.message);
+                              setShowMessageModal(true);
+                            }}
+                          >
+                            {t("adminDashboard.readMore")}
+                          </button>
+                        )}
+                      </td>
                       <td>{b.date}</td>
                       <td>{b.time}</td>
                       <td className={css.actions}>
@@ -443,7 +479,7 @@ const handleConfirmationEmail = async (b) => {
               onClick={() => setMonthPickerOpen(true)}
             >
               <span className={css.monthText}>
-                {format(visibleMonth, "LLLL yyyy", { locale: uk })}
+                {format(visibleMonth, "LLLL yyyy", { locale: dateLocale })}
               </span>
               <button className={css.downArrow}>▾</button>
             </div>
@@ -463,26 +499,35 @@ const handleConfirmationEmail = async (b) => {
                 <h3>{t("adminDashboard.selectMonthYear")}</h3>
                 <div className={css.monthPickerGrid}>
                   <div className={css.monthList}>
-                    {monthNames.map((mn, idx) => (
-                      <button
-                        key={mn}
-                        onClick={() => {
-                          applyMonthYear(idx, visibleMonth.getFullYear());
-                        }}
-                        className={css.monthItem}
-                      >
-                        {mn}
-                      </button>
-                    ))}
+                    {monthNames.map((mn, idx) => {
+                      const isPastMonth =
+                        selectedYear === currentYear && idx < currentMonth;
+                      return (
+                        <button
+                          key={mn}
+                          disabled={isPastMonth}
+                          onClick={() => {
+                            applyMonthYear(idx, selectedYear);
+                          }}
+                          className={`${css.monthItem} ${
+                            isPastMonth ? css.disabledMonth : ""
+                          }`}
+                        >
+                          {mn}
+                        </button>
+                      );
+                    })}
                   </div>
                   <div className={css.yearList}>
                     {years.map((y) => (
                       <button
                         key={y}
                         onClick={() => {
-                          applyMonthYear(visibleMonth.getMonth(), y);
+                          setSelectedYear(y);
                         }}
-                        className={css.yearItem}
+                        className={`${css.yearItem} ${
+                          selectedYear === y ? css.selectedYear : ""
+                        }`}
                       >
                         {y}
                       </button>
@@ -503,8 +548,8 @@ const handleConfirmationEmail = async (b) => {
 
           <div className={css.daysRow} role="list">
             {daysInMonth.map((d) => {
-              const dayLabel = format(d, "d", { locale: uk });
-              const weekday = format(d, "EEE", { locale: uk });
+              const dayLabel = format(d, "d", { locale: dateLocale });
+              const weekday = format(d, "EEE", { locale: dateLocale });
               const isSelected =
                 selectedDate &&
                 formatLocalDate(selectedDate) === formatLocalDate(d);
@@ -528,32 +573,26 @@ const handleConfirmationEmail = async (b) => {
           </div>
 
           <div className={css.timelineWrapper}>
-            <div className={css.hoursColumn}>
-              {workingHours.map((h) => (
-                <div key={h} className={css.hourCell}>
-                  {h}
-                </div>
-              ))}
-            </div>
+            {bookings.length === 0 ? (
+              <div className={css.noDateSelected}>
+                {t("adminDashboard.noBookings")}
+              </div>
+            ) : !selectedDate ? (
+              <div className={css.noDateSelected}>
+                {t("adminDashboard.noDateSelected")}
+              </div>
+            ) : (
+              workingHours.map((h) => {
+                const list = bookingMap[h] || [];
+                return (
+                  <div key={h} className={css.timelineRow}>
+                    <div className={css.hourCell}> {h} </div>
 
-            <div className={css.bookingsColumn}>
-              {bookings.length === 0 ? (
-                <div className={css.noDateSelected}>
-                  {t("adminDashboard.noBookings")}
-                </div>
-              ) : !selectedDate ? (
-                <div className={css.noDateSelected}>
-                  {t("adminDashboard.noDateSelected")}
-                </div>
-              ) : (
-                workingHours.map((h) => {
-                  const list = bookingMap[h] || [];
-                  if (list.length === 0) {
-                    return <div key={h} className={css.bookingEmpty} />;
-                  }
-
-                  return (
-                    <div key={h} className={css.bookingSlot}>
+                    <div
+                      className={
+                        list.length > 0 ? css.bookingSlot : css.bookingEmpty
+                      }
+                    >
                       {list.map((b) => (
                         <div
                           key={b.id}
@@ -564,31 +603,68 @@ const handleConfirmationEmail = async (b) => {
                           onMouseUp={cancelLongPress}
                           onMouseLeave={cancelLongPress}
                         >
-                          <div className={css.bookingHead}>
-                            <div className={css.clientName}>{b.clientName}</div>
-                            <div className={css.phone}>{b.number}</div>
+                          <div className={css.clientName}>
+                            <span className={css.label}>
+                              {t("adminDashboard.clientName")}:
+                            </span>
+                            <span className={css.clientNameValue}>
+                              {b.clientName}
+                            </span>
                           </div>
-                          <div className={css.bookingBody}>
-                            <div className={css.service}>
-                              {Array.isArray(b.services)
-                                ? b.services.join(", ")
-                                : b.services}
-                            </div>
-                            <div className={css.meta}>
-                              <span>
-                                {b.totalDuration ?? b.duration ?? "—"} хв
-                              </span>
-                              <span>{b.totalPrice ?? b.price ?? 0} грн</span>
-                            </div>
-                            <div className={css.status}>{b.status}</div>
+
+                          <div className={css.phone}>
+                            <span className={css.label}>
+                              {t("adminDashboard.number")}:
+                            </span>
+                            {b.number}
+                            {b.number && (
+                              <a
+                                href={`tel:${b.number.replace(/[^\d+]/g, "")}`}
+                                className={css.callButton}
+                                aria-label={`Call ${b.number}`}
+                                title="Call client"
+                                onClick={(e) => e.stopPropagation()}
+                                onTouchStart={(e) => e.stopPropagation()}
+                                onMouseDown={(e) => e.stopPropagation()}
+                              >
+                                <img
+                                  src={phoneIcon}
+                                  alt=""
+                                  className={css.phoneIcon}
+                                />
+                              </a>
+                            )}
+                          </div>
+                          <div className={css.message}>
+                            <span className={css.label}>
+                              {t("adminDashboard.message")}:
+                            </span>
+                            <span className={css.messagePreview}>
+                              {b.message
+                                ? b.message.length > 12
+                                  ? `${b.message.slice(0, 12)}...`
+                                  : b.message
+                                : "-"}
+                            </span>
+                            <button
+                              type="button"
+                              className={css.readMoreButton}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedMessage(b.message || "-");
+                                setShowMessageModal(true);
+                              }}
+                            >
+                              {t("adminDashboard.readMore")}
+                            </button>
                           </div>
                         </div>
                       ))}
                     </div>
-                  );
-                })
-              )}
-            </div>
+                  </div>
+                );
+              })
+            )}
           </div>
 
           {modalBooking && (
@@ -601,12 +677,15 @@ const handleConfirmationEmail = async (b) => {
                 onClick={(e) => e.stopPropagation()}
               >
                 <h3>{modalBooking.clientName}</h3>
-                <p>
-                  {Array.isArray(modalBooking.services)
-                    ? modalBooking.services.join(", ")
-                    : modalBooking.services}
-                </p>
+                <p>{modalBooking.number}</p>
                 <div className={css.modalButtonsRow}>
+                  <button
+                    className={css.confirmBtn}
+                    onClick={() => handleConfirmationEmail(modalBooking)}
+                    disabled={modalBooking.status === "Підтверджено"}
+                  >
+                    {t("adminDashboard.confirm")}
+                  </button>
                   <button
                     className={css.cancelBtn}
                     onClick={() => handleCancellationEmail(modalBooking)}
@@ -636,6 +715,30 @@ const handleConfirmationEmail = async (b) => {
           )}
 
           <div className={css.hiddenTableOnMobile}></div>
+        </div>
+      )}
+      {showMessageModal && (
+        <div
+          className={css.messageModalOverlay}
+          onClick={() => setShowMessageModal(false)}
+        >
+          <div
+            className={css.messageModal}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className={css.closeMessageModal}
+              onClick={() => setShowMessageModal(false)}
+              aria-label="Close"
+            >
+              ×
+            </button>
+
+            <h3>{t("adminDashboard.message")}</h3>
+
+            <p className={css.fullMessage}>{selectedMessage || "-"}</p>
+          </div>
         </div>
       )}
     </>
