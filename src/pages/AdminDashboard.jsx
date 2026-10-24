@@ -103,7 +103,6 @@ export default function AdminDashboard() {
 
   const handleConfirmationEmail = async (b) => {
     try {
-      // Check the client's email address
       if (!b.email || !b.email.trim()) {
         alert("The client's email address is missing.");
         console.error("Booking has no email address:", b);
@@ -120,8 +119,6 @@ export default function AdminDashboard() {
         message: b.message || "",
       };
 
-      console.log("Sending confirmation email to:", templateParams.to_email);
-
       // Send confirmation email using EmailJS
       const response = await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
@@ -134,7 +131,6 @@ export default function AdminDashboard() {
 
       console.log("EmailJS response:", response);
 
- 
       await updateBookingStatus(b.id, "confirmed");
 
       setBookings((prev) =>
@@ -434,7 +430,7 @@ export default function AdminDashboard() {
                         )}
                       </td>
                       <td>{b.date}</td>
-                      <td>{b.time}</td>
+                      <td>{String(b.time || "").slice(0, 5)}</td>
                       <td>
                         <span
                           className={`${css.statusBadge} ${

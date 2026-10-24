@@ -1,3 +1,5 @@
+// contact.jsx
+
 import css from "./Contact.module.css";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
