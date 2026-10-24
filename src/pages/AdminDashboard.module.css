@@ -203,6 +203,16 @@
   background: #985c02;
 }
 
+/* Desktop Confirm button */
+.btnConfirm {
+  background: #28a745;
+  color: white;
+}
+
+.btnConfirm:hover {
+  background: #218838;
+}
+
 .cancelled {
   background: #878685;
   color: rgb(0, 0, 0);
@@ -517,26 +527,45 @@
   transform: scale(0.995);
 }
 
+.clientName {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusDot {
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dotPending {
+  background-color: orange;
+}
+
+.dotConfirmed {
+  background-color: green;
+}
+
+.dotCancelled {
+  background-color: red;
+}
+
 .label {
   color: #777;
   font-weight: 600;
   font-size: 12px;
 }
-/* .clientName {
-  font-weight: 800;
-  font-size: 0.95rem;
-} */
 
 .clientNameValue {
   font-weight: 800;
   font-size: 0.9rem;
   color: #1f2937;
-  margin-left: 28px;
+  margin-left: -30px;
 }
-/* .phone {
-  font-size: 0.8rem;
-  color: #6b7280;
-} */
 
 .phone {
   display: flex;
@@ -571,7 +600,6 @@
   object-fit: contain;
 }
 
-
 .message {
   display: flex;
   align-items: center;
@@ -586,6 +614,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin-left: 10px;
 }
 
 /* Desktop message table cell */
@@ -822,4 +851,29 @@
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+/* Booking status badge — desktop */
+.statusBadge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.statusPending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.statusConfirmed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.statusCancelled {
+  background-color: #e2e3e5;
+  color: #383d41;
 }

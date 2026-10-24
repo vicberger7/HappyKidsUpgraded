@@ -134,7 +134,7 @@ export default function AdminDashboard() {
 
       console.log("EmailJS response:", response);
 
-      // Update booking status only after the email succeeds
+ 
       await updateBookingStatus(b.id, "confirmed");
 
       setBookings((prev) =>
@@ -401,6 +401,7 @@ export default function AdminDashboard() {
                   <th>{t("adminDashboard.message")}</th>
                   <th>{t("adminDashboard.date")}</th>
                   <th>{t("adminDashboard.time")}</th>
+                  <th>{t("adminDashboard.status")}</th>
                   <th>{t("adminDashboard.actions")}</th>
                 </tr>
               </thead>
@@ -434,9 +435,26 @@ export default function AdminDashboard() {
                       </td>
                       <td>{b.date}</td>
                       <td>{b.time}</td>
+                      <td>
+                        <span
+                          className={`${css.statusBadge} ${
+                            b.status === "confirmed"
+                              ? css.statusConfirmed
+                              : b.status === "cancelled"
+                                ? css.statusCancelled
+                                : css.statusPending
+                          }`}
+                        >
+                          {b.status === "confirmed"
+                            ? t("adminDashboard.confirmed")
+                            : b.status === "cancelled"
+                              ? t("adminDashboard.cancelled")
+                              : t("adminDashboard.pending")}
+                        </span>
+                      </td>
                       <td className={css.actions}>
                         <button
-                          className={`${css.btn} ${
+                          className={`${css.btn} ${css.btnConfirm} ${
                             b.status === "confirmed" ? css.confirmed : ""
                           }`}
                           onClick={() => handleConfirmationEmail(b)}
@@ -610,6 +628,15 @@ export default function AdminDashboard() {
                             <span className={css.clientNameValue}>
                               {b.clientName}
                             </span>
+                            <span
+                              className={`${css.statusDot} ${
+                                b.status === "confirmed"
+                                  ? css.dotConfirmed
+                                  : b.status === "cancelled"
+                                    ? css.dotCancelled
+                                    : css.dotPending
+                              }`}
+                            />
                           </div>
 
                           <div className={css.phone}>
@@ -637,7 +664,7 @@ export default function AdminDashboard() {
                           </div>
                           <div className={css.message}>
                             <span className={css.label}>
-                              {t("adminDashboard.message")}:
+                              {t("adminDashboard.message")}:{" "}
                             </span>
                             <span className={css.messagePreview}>
                               {b.message
